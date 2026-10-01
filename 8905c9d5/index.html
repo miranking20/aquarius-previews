@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dr. Twana — Dental Clinic · Book an appointment</title>
+<meta name="description" content="Book your dental appointment online. Open Sunday to Thursday, 2 PM to 10 PM.">
+<meta name="theme-color" content="#f4fbfc">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2312b5c4'/%3E%3Cpath d='M20 18c4-3 8-1 12 0s8-3 12 0c4 4 1 10 0 16-1 6-2 14-5 14s-3-8-7-8-4 8-7 8-4-8-5-14c-1-6-4-12 0-16z' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Instrument+Serif:ital@0;1&family=Cairo:wght@300..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4fbfc; --white:#ffffff; --ink:#0a2a33; --ink-2:#37565f; --ink-3:#6b8790;
+  --teal:#12b5c4; --teal-d:#0a8f9c; --blue:#1d6fd6; --mint:#d9f4f6; --line:rgba(10,42,51,.12);
+  --s1:8px; --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:96px; --s7:144px;
+  --ease:cubic-bezier(.22,.8,.2,1);
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --serif:'Instrument Serif',Georgia,serif;
+  --wrap:1180px;
+}
+html[lang="ar"]{ --sans:'Cairo','Inter',system-ui,sans-serif; --serif:'Cairo','Instrument Serif',serif; }
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:17px; line-height:1.7; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+img,svg{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button,input,select,textarea{ font:inherit; color:inherit; }
+button{ cursor:pointer; background:none; border:0; }
+::selection{ background:var(--teal); color:#fff; }
+:focus-visible{ outline:3px solid var(--blue); outline-offset:3px; border-radius:8px; }
+h1,h2,h3{ margin:0; font-weight:650; letter-spacing:-.035em; line-height:1.02; }
+p{ margin:0; }
+em{ font-family:var(--serif); font-style:italic; font-weight:400; color:var(--teal-d); letter-spacing:-.01em; font-size:1.08em; }
+html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] h3{ letter-spacing:0; line-height:1.3; }
+html[lang="ar"] em{ font-style:normal; font-weight:700; }
+html[lang="ar"] *{ letter-spacing:0 !important; }
+.wrap{ width:min(var(--wrap), 100% - 2*var(--s3)); margin-inline:auto; }
+section{ position:relative; padding-block:var(--s7); }
+@media (max-width:760px){ section{ padding-block:var(--s6); } }
+
+/* ---------- background aurora ---------- */
+.aurora{ position:fixed; inset:0; z-index:-1; overflow:hidden; background:var(--bg); }
+.aurora i{ position:absolute; border-radius:50%; filter:blur(90px); opacity:.55; will-change:transform; }
+.aurora i:nth-child(1){ width:60vmax; height:60vmax; left:-15vmax; top:-20vmax; background:radial-gradient(circle,#7fe3ea,transparent 65%); animation:drift1 26s ease-in-out infinite alternate; }
+.aurora i:nth-child(2){ width:55vmax; height:55vmax; right:-20vmax; top:10vmax; background:radial-gradient(circle,#8db9f5,transparent 65%); animation:drift2 32s ease-in-out infinite alternate; opacity:.45; }
+.aurora i:nth-child(3){ width:45vmax; height:45vmax; left:20vmax; bottom:-25vmax; background:radial-gradient(circle,#a4efe6,transparent 65%); animation:drift3 29s ease-in-out infinite alternate; opacity:.5; }
+@keyframes drift1{ to{ transform:translate(12vmax,10vmax) scale(1.1); } }
+@keyframes drift2{ to{ transform:translate(-14vmax,8vmax) scale(.92); } }
+@keyframes drift3{ to{ transform:translate(-10vmax,-12vmax) scale(1.08); } }
+
+/* ---------- watermark (preview only) ---------- */
+.wm{ position:fixed; inset:0; z-index:90; pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260'><text x='50%' y='50%' text-anchor='middle' transform='rotate(-24 210 130)' font-family='Arial' font-weight='800' font-size='22' letter-spacing='6' fill='%230a2a33' fill-opacity='.13'>AQUARIUS · PREVIEW</text></svg>");
+}
+.wm-badge{ position:fixed; z-index:91; inset-inline-start:16px; bottom:16px; background:rgba(10,42,51,.92); color:#fff; font-size:.74rem; font-weight:700; letter-spacing:.06em; padding:9px 14px; border-radius:999px; pointer-events:none; }
+html[lang="ar"] .wm-badge{ letter-spacing:0 !important; }
+
+/* ---------- nav ---------- */
+.nav{ position:fixed; inset:0 0 auto 0; z-index:50; padding:var(--s2) 0; transition:background-color .3s, box-shadow .3s; }
+.nav.scrolled{ background:rgba(244,251,252,.86); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); box-shadow:0 1px 0 var(--line); }
+.nav-in{ display:flex; align-items:center; justify-content:space-between; gap:var(--s2); }
+.brand{ display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:-.02em; }
+.brand .mk{ width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg,var(--teal),var(--blue)); display:grid; place-items:center; box-shadow:0 8px 24px -8px rgba(18,181,196,.8); }
+.brand .mk svg{ width:22px; height:22px; fill:#fff; }
+.brand small{ display:block; font-weight:500; font-size:.72rem; color:var(--ink-3); letter-spacing:.04em; margin-top:-2px; }
+.nav-links{ display:flex; gap:var(--s4); font-size:.95rem; color:var(--ink-2); }
+.nav-links a{ padding:8px 0; transition:color .2s; }
+.nav-links a:hover{ color:var(--teal-d); }
+.nav-r{ display:flex; align-items:center; gap:10px; }
+.lang{ min-height:44px; padding:0 18px; border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,.7); font-size:.85rem; font-weight:600; }
+.lang:hover{ border-color:var(--teal); }
+@media (max-width:860px){ .nav-links{ display:none; } }
+@media (max-width:480px){ .brand small{ display:none; } .nav .btn{ padding:12px 18px; } }
+
+/* ---------- buttons ---------- */
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:48px; padding:14px 28px; border-radius:999px; font-weight:650; font-size:1rem; line-height:1; transition:transform .2s var(--ease), box-shadow .2s, background-color .2s; white-space:nowrap; }
+.btn-p{ background:linear-gradient(135deg,var(--teal),#0e97d1); color:#fff; box-shadow:0 14px 36px -12px rgba(18,181,196,.85); }
+.btn-p:hover{ transform:translateY(-2px); box-shadow:0 18px 44px -12px rgba(18,181,196,.95); }
+.btn-g{ background:rgba(255,255,255,.75); border:1px solid var(--line); }
+.btn-g:hover{ border-color:var(--teal); transform:translateY(-2px); }
+html[dir="rtl"] .arr{ transform:scaleX(-1); display:inline-block; }
+
+/* ---------- reveal ---------- */
+.js .rv{ opacity:0; transform:translateY(28px); transition:opacity .9s var(--ease), transform .9s var(--ease); transition-delay:var(--d,0s); }
+.js .rv.in{ opacity:1; transform:none; }
+
+/* ---------- hero ---------- */
+.hero{ min-height:100svh; display:flex; align-items:center; padding-block:130px var(--s6); }
+.hero-grid{ display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); gap:var(--s5); align-items:center; }
+.eyebrow{ display:inline-flex; align-items:center; gap:10px; padding:8px 16px; border-radius:999px; background:rgba(255,255,255,.75); border:1px solid var(--line); font-size:.8rem; font-weight:650; color:var(--ink-2); letter-spacing:.04em; }
+.eyebrow i{ width:8px; height:8px; border-radius:50%; background:#18c08f; box-shadow:0 0 0 4px rgba(24,192,143,.2); }
+.hero h1{ font-size:clamp(2.8rem,7.4vw,6.4rem); margin:var(--s3) 0; text-wrap:balance; }
+.lead{ font-size:clamp(1.05rem,1.5vw,1.25rem); color:var(--ink-2); max-width:44ch; line-height:1.65; }
+.cta{ display:flex; flex-wrap:wrap; gap:var(--s2); margin-top:var(--s4); }
+.card{ background:rgba(255,255,255,.82); border:1px solid rgba(255,255,255,.9); border-radius:32px; box-shadow:0 30px 80px -30px rgba(10,80,100,.35), 0 0 0 1px var(--line); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+.hours{ padding:var(--s4); }
+.hours .tag{ font-size:.75rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--teal-d); }
+html[lang="ar"] .hours .tag{ text-transform:none; }
+.hours .big{ font-size:clamp(2.2rem,4vw,3rem); font-weight:700; letter-spacing:-.04em; line-height:1.05; margin:var(--s1) 0 var(--s2); }
+.days{ display:flex; gap:8px; flex-wrap:wrap; margin-top:var(--s3); }
+.days span{ min-width:46px; text-align:center; padding:9px 12px; border-radius:14px; font-size:.85rem; font-weight:650; background:var(--mint); color:var(--teal-d); }
+.days span.off{ background:rgba(10,42,51,.06); color:var(--ink-3); text-decoration:line-through; }
+.hours p{ color:var(--ink-2); font-size:.98rem; }
+@media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; } .hero{ padding-top:110px; } }
+
+/* ---------- section head ---------- */
+.head{ display:grid; gap:var(--s2); margin-bottom:var(--s5); justify-items:start; }
+.head h2{ font-size:clamp(2.2rem,5.2vw,4.2rem); text-wrap:balance; }
+
+/* ---------- services ---------- */
+.grid3{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s3); }
+.svc{ padding:var(--s4); border-radius:28px; background:rgba(255,255,255,.82); border:1px solid var(--line); transition:transform .3s var(--ease), box-shadow .3s, border-color .3s; }
+.svc:hover{ transform:translateY(-6px); border-color:rgba(18,181,196,.6); box-shadow:0 24px 60px -28px rgba(18,181,196,.7); }
+.ico{ width:52px; height:52px; border-radius:16px; display:grid; place-items:center; background:linear-gradient(135deg,var(--mint),#e5f0ff); color:var(--teal-d); margin-bottom:var(--s3); }
+.ico svg{ width:26px; height:26px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+.svc h3{ font-size:1.3rem; letter-spacing:-.02em; line-height:1.2; margin-bottom:var(--s1); }
+.svc p{ color:var(--ink-2); font-size:.98rem; }
+@media (max-width:980px){ .grid3{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:620px){ .grid3{ grid-template-columns:1fr; } .svc{ padding:var(--s3); } }
+
+/* ---------- steps ---------- */
+.steps{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s3); counter-reset:st; }
+.step{ position:relative; padding:var(--s4) var(--s4) var(--s4); border-radius:28px; background:linear-gradient(160deg,#0c3f4d,#0a2a33); color:#e6f7f9; overflow:hidden; }
+.step::after{ content:""; position:absolute; width:260px; height:260px; border-radius:50%; background:radial-gradient(circle,rgba(18,181,196,.55),transparent 65%); inset-inline-end:-90px; top:-110px; }
+.step b{ display:block; font-family:var(--serif); font-style:italic; font-weight:400; font-size:3.4rem; line-height:1; color:#7fe3ea; margin-bottom:var(--s2); direction:ltr; }
+.step h3{ font-size:1.3rem; letter-spacing:-.02em; line-height:1.2; margin-bottom:var(--s1); position:relative; }
+.step p{ color:rgba(230,247,249,.78); font-size:.98rem; position:relative; }
+@media (max-width:900px){ .steps{ grid-template-columns:1fr; } }
+
+/* ---------- booking ---------- */
+.book-wrap{ display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:var(--s5); align-items:start; }
+.book-copy h2{ font-size:clamp(2.2rem,5vw,4rem); margin:var(--s2) 0 var(--s3); text-wrap:balance; }
+.notice{ margin-top:var(--s4); padding:var(--s3); border-radius:20px; background:rgba(255,255,255,.75); border:1px solid var(--line); font-size:.92rem; color:var(--ink-2); }
+.notice b{ color:var(--ink); }
+form.bk{ padding:var(--s4); display:grid; gap:var(--s3); }
+.row2{ display:grid; grid-template-columns:1fr 1fr; gap:var(--s2); }
+label{ display:grid; gap:8px; font-weight:650; font-size:.92rem; }
+label span.opt{ font-weight:500; color:var(--ink-3); }
+input,select,textarea{ width:100%; min-height:52px; padding:14px 16px; border-radius:16px; border:1.5px solid var(--line); background:#fff; font-size:1rem; transition:border-color .2s, box-shadow .2s; }
+textarea{ min-height:130px; resize:vertical; line-height:1.55; }
+input:focus,select:focus,textarea:focus{ outline:none; border-color:var(--teal); box-shadow:0 0 0 4px rgba(18,181,196,.18); }
+input:invalid:not(:placeholder-shown):not(:focus){ border-color:#e5484d; }
+.acts{ display:flex; flex-wrap:wrap; gap:var(--s2); align-items:center; }
+.acts .mail{ font-size:.92rem; color:var(--ink-2); border-bottom:1px solid var(--line); padding-block:8px; background:none; }
+.acts .mail:hover{ color:var(--teal-d); border-color:var(--teal); }
+.fine{ font-size:.82rem; color:var(--ink-3); line-height:1.55; }
+.msg{ font-size:.92rem; font-weight:600; color:#c2343a; min-height:1.2em; }
+@media (max-width:900px){ .book-wrap{ grid-template-columns:1fr; gap:var(--s4); } }
+@media (max-width:560px){ .row2{ grid-template-columns:1fr; } form.bk{ padding:var(--s3); } }
+
+/* ---------- footer ---------- */
+footer{ padding:var(--s5) 0 calc(var(--s5) + 40px); border-top:1px solid var(--line); background:rgba(255,255,255,.6); }
+.foot{ display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:var(--s4); font-size:.95rem; color:var(--ink-2); }
+.foot h4{ margin:0 0 var(--s1); font-size:.78rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); }
+html[lang="ar"] .foot h4{ text-transform:none; }
+.foot a{ border-bottom:1px solid var(--line); }
+.foot a:hover{ color:var(--teal-d); border-color:var(--teal); }
+.ph{ color:var(--ink-3); font-style:italic; }
+.credit{ margin-top:var(--s4); font-size:.82rem; color:var(--ink-3); }
+@media (max-width:760px){ .foot{ grid-template-columns:1fr; } }
+
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  .aurora i{ animation:none; }
+  .js .rv{ opacity:1; transform:none; transition:none; }
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+<noscript><style>.rv{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="brand" aria-label="Dr. Twana Dental Clinic">
+      <span class="mk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5c1.6-1 3.2-.4 5 0s3.400-1.100 5 0c1.700 1.500.4 3.800 0 6.200-.4 2.400-.8 6.300-2 6.300s-1.200-3.500-3-3.500-1.800 3.500-3 3.500-1.600-3.900-2-6.300C6.600 7.300 5.300 5 7 3.500z" transform="translate(0 2)"/></svg></span>
+      <span><span data-i="brand">Dr. Twana</span><small data-i="brandSub">Dental Clinic</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#services" data-i="nav1">Services</a>
+      <a href="#how" data-i="nav2">How it works</a>
+      <a href="#book" data-i="nav3">Book</a>
+      <a href="#contact" data-i="nav4">Contact</a>
+    </nav>
+    <div class="nav-r">
+      <button class="lang" id="langBtn" type="button" aria-label="Switch language">العربية</button>
+      <a href="#book" class="btn btn-p" data-i="navCta">Book now</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow rv"><i></i><span data-i="eyebrow">Accepting appointments · Sunday to Thursday</span></span>
+        <h1 class="rv" style="--d:.08s"><span data-i="h1a">A healthier smile,</span> <em data-i="h1b">booked in a minute.</em></h1>
+        <p class="lead rv" style="--d:.16s" data-i="lead">Tell us when you can come and what is bothering you. We will confirm your visit on WhatsApp, so you never wait on the phone.</p>
+        <div class="cta rv" style="--d:.24s">
+          <a class="btn btn-p" href="#book"><span data-i="cta1">Book an appointment</span><span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-g" href="#services" data-i="cta2">Our services</a>
+        </div>
+      </div>
+      <aside class="card hours rv" style="--d:.2s" aria-label="Opening hours">
+        <div class="tag" data-i="hTag">Opening hours</div>
+        <div class="big" data-i="hBig">2 PM – 10 PM</div>
+        <p data-i="hP">Every working day, in the afternoon and evening, so you can come after work or school.</p>
+        <div class="days" aria-hidden="true">
+          <span data-i="d0">Sun</span><span data-i="d1">Mon</span><span data-i="d2">Tue</span><span data-i="d3">Wed</span><span data-i="d4">Thu</span><span class="off" data-i="d5">Fri</span><span class="off" data-i="d6">Sat</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow rv" data-i="sEy">Services</span>
+        <h2 class="rv" style="--d:.06s"><span data-i="sH1">Care for every</span> <em data-i="sH2">smile.</em></h2>
+      </div>
+      <div class="grid3">
+        <article class="svc rv"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.500"/><path d="M20 20l-4.200-4.200"/></svg></div><h3 data-i="v1h">Check-ups</h3><p data-i="v1p">A careful exam to catch small problems early, before they turn into pain.</p></article>
+        <article class="svc rv" style="--d:.06s"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l1.700 4.300L18 9l-4.300 1.700L12 15l-1.700-4.300L6 9l4.300-1.700L12 3z"/><path d="M19 15l.8 2.200L22 18l-2.200.8L19 21l-.8-2.200L16 18l2.200-.8L19 15z"/></svg></div><h3 data-i="v2h">Cleaning and whitening</h3><p data-i="v2p">Remove plaque and stains for a brighter, fresher smile.</p></article>
+        <article class="svc rv" style="--d:.12s"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.500-7-10a4 4 0 0 1 7-2.600A4 4 0 0 1 19 11c0 5.500-7 10-7 10z"/></svg></div><h3 data-i="v3h">Fillings and repair</h3><p data-i="v3p">Fix cavities and chipped teeth so you can eat and smile comfortably.</p></article>
+        <article class="svc rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M13 2.500L5 13.500h6l-1 8 8-11h-6l1-8z"/></svg></div><h3 data-i="v4h">Toothache relief</h3><p data-i="v4p">In pain? Describe it in the form and we will do our best to see you soon.</p></article>
+        <article class="svc rv" style="--d:.06s"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M8 8v8M12 8v8M16 8v8"/></svg></div><h3 data-i="v5h">Braces and alignment</h3><p data-i="v5p">Straighter teeth with a plan that fits your age and your budget.</p></article>
+        <article class="svc rv" style="--d:.12s"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.500"/><path d="M5 21c.8-4 3.400-6 7-6s6.200 2 7 6"/></svg></div><h3 data-i="v6h">Children and families</h3><p data-i="v6p">Gentle visits for kids and a clinic the whole family can rely on.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow rv" data-i="wEy">How it works</span>
+        <h2 class="rv" style="--d:.06s"><span data-i="wH1">Three steps to your</span> <em data-i="wH2">visit.</em></h2>
+      </div>
+      <div class="steps">
+        <article class="step rv"><b>01</b><h3 data-i="w1h">Pick a day and time</h3><p data-i="w1p">Choose any working day from Sunday to Thursday between 2 PM and 10 PM.</p></article>
+        <article class="step rv" style="--d:.08s"><b>02</b><h3 data-i="w2h">Tell us what is wrong</h3><p data-i="w2p">Write a few words about your pain or what you need, so the doctor is ready for you.</p></article>
+        <article class="step rv" style="--d:.16s"><b>03</b><h3 data-i="w3h">We confirm on WhatsApp</h3><p data-i="w3p">Your request opens in WhatsApp. The clinic replies to confirm your time.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="book">
+    <div class="wrap book-wrap">
+      <div class="book-copy">
+        <span class="eyebrow rv" data-i="bEy">Book online</span>
+        <h2 class="rv" style="--d:.06s"><span data-i="bH1">Reserve your</span> <em data-i="bH2">appointment.</em></h2>
+        <p class="lead rv" style="--d:.12s" data-i="bLead">It takes less than a minute. No account, no waiting on the phone.</p>
+        <div class="notice rv" style="--d:.18s"><b data-i="nB">Emergency?</b> <span data-i="nT">For severe swelling, heavy bleeding or trouble breathing, go to the nearest emergency room instead of using this form.</span></div>
+      </div>
+      <form class="card bk rv" id="bk" style="--d:.1s" novalidate>
+        <div class="row2">
+          <label><span data-i="fName">Your name</span><input id="fName" name="name" autocomplete="name" required placeholder=" "></label>
+          <label><span data-i="fPhone">Phone number</span><input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder=" "></label>
+        </div>
+        <div class="row2">
+          <label><span data-i="fDay">Preferred day</span><select id="fDay" required></select></label>
+          <label><span data-i="fTime">Preferred time</span><select id="fTime" required></select></label>
+        </div>
+        <label><span><span data-i="fPain">What is bothering you?</span> <span class="opt" data-i="fOpt">(optional)</span></span><textarea id="fPain" name="pain" data-ph="fPainPh"></textarea></label>
+        <div class="msg" id="msg" role="alert"></div>
+        <div class="acts">
+          <button class="btn btn-p" type="submit"><span data-i="send">Send on WhatsApp</span><span class="arr" aria-hidden="true">→</span></button>
+          <button class="mail" type="button" id="mailBtn" data-i="mail">or send by email</button>
+        </div>
+        <p class="fine" data-i="fine">Your request is only sent when you press send. It opens in your WhatsApp or email app so you can check it first.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h4 data-i="fBrand">Dr. Twana · Dental Clinic</h4>
+        <p data-i="fAbout">Friendly dental care with easy online booking.</p>
+      </div>
+      <div>
+        <h4 data-i="fHoursH">Hours</h4>
+        <p data-i="fHours">Sunday to Thursday<br>2 PM – 10 PM</p>
+      </div>
+      <div>
+        <h4 data-i="fContactH">Contact</h4>
+        <p><a href="tel:+9647701344144" dir="ltr">0770 134 4144</a></p>
+        <p class="ph" data-i="fAddr">[Clinic address goes here]</p>
+      </div>
+    </div>
+    <p class="credit" data-i="credit">Website made by Aquarius.</p>
+  </div>
+</footer>
+
+<script>
+/* ============ CONFIG ============ */
+const CLINIC = {
+  waNumber: "9647701344144",        // WhatsApp number (country code + number, no + or spaces)
+  email: "twanaihsan@gmail.com"     // fallback email for booking requests
+};
+
+const T = {
+en:{
+  badge:"PREVIEW BY AQUARIUS · NOT THE FINAL SITE", brand:"Dr. Twana", brandSub:"Dental Clinic",
+  nav1:"Services", nav2:"How it works", nav3:"Book", nav4:"Contact", navCta:"Book now", langBtn:"العربية",
+  eyebrow:"Accepting appointments · Sunday to Thursday",
+  h1a:"A healthier smile,", h1b:"booked in a minute.",
+  lead:"Tell us when you can come and what is bothering you. We will confirm your visit on WhatsApp, so you never wait on the phone.",
+  cta1:"Book an appointment", cta2:"Our services",
+  hTag:"Opening hours", hBig:"2 PM – 10 PM", hP:"Every working day, in the afternoon and evening, so you can come after work or school.",
+  d0:"Sun", d1:"Mon", d2:"Tue", d3:"Wed", d4:"Thu", d5:"Fri", d6:"Sat",
+  sEy:"Services", sH1:"Care for every", sH2:"smile.",
+  v1h:"Check-ups", v1p:"A careful exam to catch small problems early, before they turn into pain.",
+  v2h:"Cleaning and whitening", v2p:"Remove plaque and stains for a brighter, fresher smile.",
+  v3h:"Fillings and repair", v3p:"Fix cavities and chipped teeth so you can eat and smile comfortably.",
+  v4h:"Toothache relief", v4p:"In pain? Describe it in the form and we will do our best to see you soon.",
+  v5h:"Braces and alignment", v5p:"Straighter teeth with a plan that fits your age and your budget.",
+  v6h:"Children and families", v6p:"Gentle visits for kids and a clinic the whole family can rely on.",
+  wEy:"How it works", wH1:"Three steps to your", wH2:"visit.",
+  w1h:"Pick a day and time", w1p:"Choose any working day from Sunday to Thursday between 2 PM and 10 PM.",
+  w2h:"Tell us what is wrong", w2p:"Write a few words about your pain or what you need, so the doctor is ready for you.",
+  w3h:"We confirm on WhatsApp", w3p:"Your request opens in WhatsApp. The clinic replies to confirm your time.",
+  bEy:"Book online", bH1:"Reserve your", bH2:"appointment.", bLead:"It takes less than a minute. No account, no waiting on the phone.",
+  nB:"Emergency?", nT:"For severe swelling, heavy bleeding or trouble breathing, go to the nearest emergency room instead of using this form.",
+  fName:"Your name", fPhone:"Phone number", fDay:"Preferred day", fTime:"Preferred time", fPain:"What is bothering you?", fOpt:"(optional)",
+  fPainPh:"For example: pain in a lower tooth for three days, worse with cold drinks.",
+  send:"Send on WhatsApp", mail:"or send by email",
+  fine:"Your request is only sent when you press send. It opens in your WhatsApp or email app so you can check it first.",
+  errReq:"Please enter your name and phone number.",
+  fBrand:"Dr. Twana · Dental Clinic", fAbout:"Friendly dental care with easy online booking.",
+  fHoursH:"Hours", fHours:"Sunday to Thursday<br>2 PM – 10 PM", fContactH:"Contact", fAddr:"[Clinic address goes here]",
+  credit:"Website made by Aquarius.",
+  days:["Sunday","Monday","Tuesday","Wednesday","Thursday"], pickDay:"Choose a day", pickTime:"Choose a time",
+  m_hello:"Hello Dr. Twana, I would like to book an appointment.", m_name:"Name", m_phone:"Phone", m_day:"Day", m_time:"Time", m_pain:"Problem", m_subj:"Appointment request"
+},
+ar:{
+  badge:"معاينة من Aquarius · ليس الموقع النهائي", brand:"د. تـوانه", brandSub:"عيادة أسنان",
+  nav1:"الخدمات", nav2:"كيف يعمل", nav3:"احجز", nav4:"تواصل", navCta:"احجز الآن", langBtn:"English",
+  eyebrow:"نستقبل المواعيد · من الأحد إلى الخميس",
+  h1a:"ابتسامة أصح،", h1b:"تحجزها في دقيقة.",
+  lead:"أخبرنا متى يناسبك الحضور وما الذي يزعجك. سنؤكد موعدك عبر واتساب، فلا تنتظر على الهاتف.",
+  cta1:"احجز موعداً", cta2:"خدماتنا",
+  hTag:"ساعات الدوام", hBig:"٢ م – ١٠ م", hP:"كل يوم عمل، في العصر والمساء، لتأتي بعد العمل أو الدراسة.",
+  d0:"أحد", d1:"اثنين", d2:"ثلاثاء", d3:"أربعاء", d4:"خميس", d5:"جمعة", d6:"سبت",
+  sEy:"الخدمات", sH1:"عناية لكل", sH2:"ابتسامة.",
+  v1h:"فحص دوري", v1p:"فحص دقيق لاكتشاف المشاكل الصغيرة مبكراً قبل أن تتحول إلى ألم.",
+  v2h:"تنظيف وتبييض", v2p:"إزالة الجير والتصبغات لابتسامة أنصع وأنضر.",
+  v3h:"حشوات وترميم", v3p:"علاج التسوس والأسنان المكسورة لتأكل وتبتسم براحة.",
+  v4h:"تسكين ألم الأسنان", v4p:"تشعر بألم؟ صِفه في النموذج وسنبذل جهدنا لنراك قريباً.",
+  v5h:"تقويم الأسنان", v5p:"أسنان أكثر انتظاماً بخطة تناسب عمرك وميزانيتك.",
+  v6h:"الأطفال والعائلات", v6p:"زيارات لطيفة للأطفال وعيادة تعتمد عليها العائلة كلها.",
+  wEy:"كيف يعمل", wH1:"ثلاث خطوات إلى", wH2:"زيارتك.",
+  w1h:"اختر اليوم والوقت", w1p:"اختر أي يوم عمل من الأحد إلى الخميس بين الساعة ٢ عصراً و١٠ مساءً.",
+  w2h:"أخبرنا ما المشكلة", w2p:"اكتب بضع كلمات عن ألمك أو ما تحتاجه ليكون الطبيب جاهزاً لك.",
+  w3h:"نؤكد لك عبر واتساب", w3p:"يُفتح طلبك في واتساب، وتردّ العيادة لتأكيد موعدك.",
+  bEy:"احجز عبر الإنترنت", bH1:"احجز", bH2:"موعدك.", bLead:"يستغرق أقل من دقيقة. بلا حساب وبلا انتظار على الهاتف.",
+  nB:"حالة طارئة؟", nT:"في حال التورّم الشديد أو النزيف الغزير أو صعوبة التنفس، توجّه إلى أقرب طوارئ بدلاً من استخدام هذا النموذج.",
+  fName:"اسمك", fPhone:"رقم الهاتف", fDay:"اليوم المفضّل", fTime:"الوقت المفضّل", fPain:"ما الذي يزعجك؟", fOpt:"(اختياري)",
+  fPainPh:"مثال: ألم في سنّ سفلي منذ ثلاثة أيام ويزداد مع المشروبات الباردة.",
+  send:"أرسل عبر واتساب", mail:"أو أرسل بالبريد الإلكتروني",
+  fine:"لا يُرسَل طلبك إلا عندما تضغط على إرسال. يُفتح في واتساب أو تطبيق البريد لتراجعه أولاً.",
+  errReq:"يرجى إدخال اسمك ورقم هاتفك.",
+  fBrand:"د. تـوانه · عيادة أسنان", fAbout:"رعاية أسنان ودودة مع حجز سهل عبر الإنترنت.",
+  fHoursH:"الدوام", fHours:"من الأحد إلى الخميس<br>٢ م – ١٠ م", fContactH:"تواصل", fAddr:"[عنوان العيادة هنا]",
+  credit:"موقع من تصميم Aquarius.",
+  days:["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس"], pickDay:"اختر يوماً", pickTime:"اختر وقتاً",
+  m_hello:"مرحباً دكتور توانه، أودّ حجز موعد.", m_name:"الاسم", m_phone:"الهاتف", m_day:"اليوم", m_time:"الوقت", m_pain:"المشكلة", m_subj:"طلب موعد"
+}};
+
+const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fDay=$('#fDay'), fTime=$('#fTime');
+let lang='en';
+
+function fill(){
+  const d=T[lang];
+  const pd=fDay.value, pt=fTime.value;
+  fDay.innerHTML='<option value="">'+d.pickDay+'</option>'+d.days.map((x,i)=>'<option value="'+i+'">'+x+'</option>').join('');
+  const slots=[]; for(let h=14;h<22;h++){ for(const m of [0,30]){ slots.push([h,m]); } }
+  fTime.innerHTML='<option value="">'+d.pickTime+'</option>'+slots.map(([h,m],i)=>{
+    const hh=((h+11)%12)+1, ap = lang==='ar' ? (h>=12?'م':'ص') : (h>=12?'PM':'AM');
+    return '<option value="'+i+'">'+hh+':'+(m?'30':'00')+' '+ap+'</option>';
+  }).join('');
+  fDay.value=pd; fTime.value=pt;
+}
+function setLang(l){
+  lang=l; const d=T[l];
+  document.documentElement.lang=l; document.documentElement.dir=l==='ar'?'rtl':'ltr';
+  $$('[data-i]').forEach(el=>{ const k=el.dataset.i; if(d[k]==null) return; if(k==='fHours') el.innerHTML=d[k]; else el.textContent=d[k]; });
+  $$('[data-ph]').forEach(el=>el.placeholder=d[el.dataset.ph]);
+  $('#langBtn').textContent=d.langBtn;
+  fill(); $('#msg').textContent='';
+  try{ localStorage.setItem('dc-lang',l); }catch(e){}
+}
+let saved=null; try{ saved=localStorage.getItem('dc-lang'); }catch(e){}
+setLang(saved||((navigator.language||'').toLowerCase().startsWith('ar')?'ar':'en'));
+$('#langBtn').addEventListener('click',()=>setLang(lang==='ar'?'en':'ar'));
+
+/* booking → WhatsApp / email */
+function compose(){
+  const d=T[lang], name=$('#fName').value.trim(), phone=$('#fPhone').value.trim();
+  if(!name||!phone){ $('#msg').textContent=d.errReq; (name?$('#fPhone'):$('#fName')).focus(); return null; }
+  $('#msg').textContent='';
+  const day = fDay.value!=='' ? fDay.options[fDay.selectedIndex].text : '-';
+  const time = fTime.value!=='' ? fTime.options[fTime.selectedIndex].text : '-';
+  const pain = $('#fPain').value.trim() || '-';
+  return d.m_hello+'\n\n'+d.m_name+': '+name+'\n'+d.m_phone+': '+phone+'\n'+d.m_day+': '+day+'\n'+d.m_time+': '+time+'\n'+d.m_pain+': '+pain;
+}
+$('#bk').addEventListener('submit',e=>{
+  e.preventDefault(); const t=compose(); if(!t) return;
+  window.open('https://wa.me/'+CLINIC.waNumber+'?text='+encodeURIComponent(t),'_blank','noopener');
+});
+$('#mailBtn').addEventListener('click',()=>{
+  const t=compose(); if(!t) return;
+  location.href='mailto:'+CLINIC.email+'?subject='+encodeURIComponent(T[lang].m_subj)+'&body='+encodeURIComponent(t);
+});
+
+/* nav + reveal */
+(()=>{
+  const nav=$('#nav'); const f=()=>nav.classList.toggle('scrolled',scrollY>30);
+  addEventListener('scroll',f,{passive:true}); f();
+  const els=$$('.rv');
+  if(!('IntersectionObserver' in window)||reduced){ els.forEach(e=>e.classList.add('in')); return; }
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }),{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  els.forEach(e=>io.observe(e));
+  setTimeout(()=>els.forEach(e=>e.classList.add('in')),6000); // failsafe
+})();
+</script>
+</body>
+</html>
